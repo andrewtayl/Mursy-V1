@@ -1,18 +1,15 @@
-const Discord = require('discord.js');
-const logger = require('winston');
-const auth = require('./auth.json');
-const fs = require('fs');
-const { token } = require('./config.json');
-const client = new Discord.Client({ intents: ['GUILD_VOICE_STATES', 'GUILDS', 'GUILD_MESSAGES'], partials: ["MESSAGE", "CHANNEL", "REACTION"]});
-const prefix = '.';
+const client = require('./Files/Client/DiscordClient.js');
 
-client.commands = new Discord.Collection();
-client.events = new Discord.Collection();
+// eslint-disable-next-line no-undef
+process.setMaxListeners(2);
 
-['command_handler', 'event_handler'].forEach(handler =>{
-  require(`./handlers/${handler}`)(client, Discord);
-})
+for (const rawevent of [...client.events.entries()]) {
+  const event = client.events.get(rawevent[0]);
+  if (event.once) client.once(rawevent[0], (...args) => event.execute(...args));
+  else client.on(rawevent[0], (...args) => event.execute(...args));
+}
 
-
-//Bot Token
-client.login(token)
+// eslint-disable-next-line no-undef
+process.on('unhandledRejection', (error) => { console.log('Unhandled Rejection', error); });
+// eslint-disable-next-line no-undef
+process.on('uncaughtException', (error) => { console.log('Unhandled Exception', error); });

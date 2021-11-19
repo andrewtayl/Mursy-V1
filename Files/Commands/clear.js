@@ -31,12 +31,18 @@ module.exports = {
       if(args[0] > 1){
         message.channel.send({ embeds: [message2Embed] })
       console.log(`clear command accessed by ${member} to clear ${args[0]} Messages `)
+      setTimeout(function(){
+          message.channel.bulkDelete(1);
+       }, 3000);
     };
 
 
       if(args[0] < 2){
       message.channel.send({ embeds: [message1Embed] }).catch(err => console.log(err));;
       console.log(`clear command accessed by ${member} to clear ${args[0]} Message `)
+      setTimeout(function(){
+          message.channel.bulkDelete(1);
+       }, 3000);
 }
     })
   } else {

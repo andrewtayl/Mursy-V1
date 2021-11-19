@@ -6,7 +6,7 @@ module.exports = {
     const pingEmbed = new MessageEmbed()
       .setColor('RANDOM')
       .setTitle('Pong!')
-      .setDescription(`🏓 **${Date.now() - message.createdTimestamp}ms.**`)
+      .setDescription(`🏓 **${Math.round(client.ws.ping)}ms.**`)
     message.channel.send({ embeds: [pingEmbed] });
 
 

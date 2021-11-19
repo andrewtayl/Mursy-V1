@@ -5,6 +5,10 @@ module.exports = {
   description: "unmutes people in your server",
   execute(client, message, cmd, args, Discord){
     const member = message.mentions.users.first();
+    let server = message.guild.name;
+    let author = message.author.username;
+    let mention = message.mentions.users.first().username;
+    const user = message.mentions.members.first();
     if(message.member.permissions.has('MUTE_MEMBERS')){
       const target = message.mentions.users.first();
       if(target){
@@ -16,10 +20,22 @@ module.exports = {
           memberTarget.roles.remove(muteRole.id)
           //memberTarget.roles.add(mainRole.id);
           const unmuteEmbed = new MessageEmbed()
-          	.setColor('RANDOM')
+          	.setColor('BLACK')
+            .setTitle('Unmute 📢')
+            .setThumbnail(message.mentions.users.first().displayAvatarURL())
           	.setDescription(`<@${memberTarget.user.id}> has been unmuted.`)
-          message.channel.send({ embeds: [unmuteEmbed] });
+            .setFooter(`Unmuted By ${author}`)
+            .setTimestamp()
 
+          const unmuteDmEmbed = new MessageEmbed()
+          .setColor('GREEN')
+          .setThumbnail(`${message.guild.iconURL()}`)
+          .setTitle(`You were unmuted in **${server}**!`)
+          .setDescription(`**${mention}** Please Try To Follow the Rules.`)
+
+          user.send({ embeds: [unmuteDmEmbed] });
+          message.channel.send({ embeds: [unmuteEmbed] });
+          message.channel.bulkDelete(1);
 
       } else {
         const mentionEmbed = new MessageEmbed()

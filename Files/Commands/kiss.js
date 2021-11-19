@@ -5,7 +5,7 @@ module.exports = {
   name: 'kiss',
   description: 'kiss another user',
   execute(client, message, cmd, args, Discord){
-
+  let reason = args.join(" ").slice(22);
     let member = message.author.username;
 //    let bot = "@Mursy";
 
@@ -27,15 +27,25 @@ module.exports = {
     let image = Math.floor((Math.random() * kiss.length))
 
 
+    if (!reason){
+        let mention = message.mentions.users.first().username;
+      //without args[0]
+          let kissEmbed = new MessageEmbed()
+          .setColor("GREEN")
+          .setThumbnail(kiss[image])
+          .setDescription(`**${member}** Kissed **${mention}**`)
+        message.channel.send({ embeds: [kissEmbed] })
 
-    let kissEmbed = new MessageEmbed()
-    .setColor("GREEN")
-    .setThumbnail(kiss[image])
-    .setDescription(`**${member}** Kissed ${args}`)
-
-
-    message.channel.send({ embeds: [kissEmbed] })
-
+    } else {
+      let mention = message.mentions.users.first().username;
+      //with args[0]
+          let reasonKissEmbed = new MessageEmbed()
+          .setColor("RANDOM")
+          .setThumbnail(kiss[image])
+          .setTitle(`**${member}** Kissed **${mention}**`)
+          .addField("Reason:", `${reason}`)
+      message.channel.send({ embeds: [reasonKissEmbed] })
+    }
   }
 
 }
