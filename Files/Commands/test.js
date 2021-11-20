@@ -13,3 +13,5 @@ let user = message.mentions.users.first();
 
   }
 }
+
+// Just a test command 

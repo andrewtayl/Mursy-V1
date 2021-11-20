@@ -1,3 +1,9 @@
+
+
+// REALLY WHY ARE YOU EVEN LOOKING AT THIS YOU NEED TO GO TO HORRNY JAIL GTFO 
+// by Andrew not adding comments 
+
+
 const randomPuppy = require('random-puppy');
 const snekfetch = require('snekfetch');
 const { MessageEmbed } = require('discord.js')

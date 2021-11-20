@@ -1,15 +1,17 @@
 const { MessageEmbed } = require('discord.js')
 
 module.exports = {
+  // Setting up command 
   name: 'whois',
   description: 'Displays Information about a user',
   async execute(client, message, cmd, args, Discord){
+    // Checking roles and user properties
     const { guild, channel } = message;
     const user = message.mentions.users.first() || message.author;
     const member = message.guild.members.cache.get(user.id);
     let muteRole = message.member.roles.cache.some(role => role.name === 'muted')
 
-
+// Making a embed message
     const userInfoEmbed = new MessageEmbed()
     .setColor("BLACK")
     .setTitle(`User Info for ${user.username}`)
@@ -28,7 +30,7 @@ module.exports = {
  .setFooter(`Requested by ${message.author.username}`)
  .setTimestamp()
 
-
+// Sending the message 
 message.channel.send({ embeds: [userInfoEmbed] })
 
   }
